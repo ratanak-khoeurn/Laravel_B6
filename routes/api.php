@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Post\PostController;
@@ -17,10 +18,11 @@ use App\Http\Controllers\Comment\CommentController;
 */
 
 Route::middleware('auth:sanctum')->group(function() {
-
    Route::post('/add-post',[PostController::class, 'addPost']);
    Route::post('/add-comment',[CommentController::class, 'addComment']);
    Route::post('/add-like',[PostController::class, 'addLike']);
-
    Route::get('/get-post/{id}',[PostController::class, 'getPosts']);
 });
+
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
