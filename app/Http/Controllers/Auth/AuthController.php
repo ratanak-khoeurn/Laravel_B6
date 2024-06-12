@@ -12,31 +12,28 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
         ]);
-
-        // Check if validation fails
-        if ($validator->fails()) {
+        $user_exist = User::where('email', $request->email)->first();
+        if ($user_exist) {
             return response([
-                'message' => 'Validation errors',
-                'success' => false,
-                'errors' => $validator->errors()->all()
-            ]);
+                'message' => 'User already exist !',
+                'success' => false
+            ], 400);
         }
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' =>  Hash::make($request->password),
+            'password' => Hash::make($request->password)
         ]);
         return response([
             'message' => 'User created successfully',
             'success' => true,
-            'user' => $user,
-        ]);
+            'user' => $user
+        ], 200);
     }
     public function login(Request $request)
     {
