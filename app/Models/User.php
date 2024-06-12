@@ -44,10 +44,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-    public function sendPasswordResetNotification($token)
-    {
-        $url = 'https://spa.test/reset-password?token=' . $token;
-        $this->notify(new ResetPasswordNotification($url));
-    }
 }
