@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('body');
             $table->integer('post_id');
             $table->integer('user_id');
-            $table->integer('like_count');
+            $table->integer('like_count')->default(0);
             $table->timestamps();
         });
     }

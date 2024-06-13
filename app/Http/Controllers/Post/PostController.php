@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Post;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\PostResource;
+use App\Http\Resources\Post\PostResource;
 use Illuminate\Http\Request;
 use App\Models\Post\Post;
 use App\Models\Post\Like;
@@ -21,7 +21,7 @@ class PostController extends Controller
         $post = Post::create([
             'title' => $request->title,
             'description' => $request->description,
-            'user_id' => auth()->user()->id,
+            'user_id' => Auth()->user()->id,
         ]);
 
         return response($post);
@@ -49,7 +49,7 @@ class PostController extends Controller
 
         Like::create([
             'post_id' => $request->post_id,
-            'user_id' => auth()->user()->id,
+            'user_id' => Auth()->user()->id,
         ]);
 
         return response("Liked");
@@ -57,9 +57,11 @@ class PostController extends Controller
     }
 
     public function getPost($id){
+
         $post = Post::find($id);
-        $post = new PostResource($post);
+        return response(new PostResource($post));
        
-        // return response($posts);
+       
+       
     }
 }
