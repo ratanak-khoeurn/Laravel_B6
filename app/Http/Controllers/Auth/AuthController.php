@@ -12,76 +12,56 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
         ]);
-
-        // Check if validation fails
-        if ($validator->fails()) {
+        $user_exist = User::where('email', $request->email)->first();
+        if ($user_exist) {
             return response([
-                'message' => 'Validation errors',
-                'success' => false,
-                'errors' => $validator->errors()->all()
-            ]);
+                'message' => 'User already exist !',
+                'success' => false
+            ], 400);
         }
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' =>  Hash::make($request->password),
+            'password' => Hash::make($request->password)
         ]);
         return response([
             'message' => 'User created successfully',
             'success' => true,
-            'user' => $user,
-        ]);
+            'user' => $user
+        ], 200);
     }
     public function login(Request $request)
     {
-        // Validate the request
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required|string|min:8',
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
         ]);
-
-        // Check if validation fails
-        if ($validator->fails()) {
-            return response([
-                'message' => 'Validation errors',
-                'success' => false,
-                'errors' => $validator->errors()->all()
-            ]);
-        }
-
-        // Find the user by email
         $user = User::where('email', $request->email)->first();
         if (!$user) {
             return response([
-                'message' => 'User not found!',
+                'message' => 'User Not Found!',
                 'success' => false
-            ]);
+            ], 400);
         }
-
-        // Check if the provided password matches the user's password
-        if (!Hash::check($request->password, $user->password)) {
+        if (Hash::check($request->password, $user->password)) {
+            $access_token = $user->createToken('authToken')->plainTextToken;
             return response([
-                'message' => 'Invalid credentials!',
+                'message' => 'Login successfully',
+                'success' => true,
+                'user' => $user,
+                'access_token' => $access_token
+            ], 200);
+        } else {
+            return response([
+                'message' => 'Invalid Password!',
                 'success' => false
-            ]);
+            ], 400);
         }
-
-        // Create an access token for the user
-        $access_token = $user->createToken('authToken')->plainTextToken;
-
-        // Return success response
-        return response([
-            'message' => 'User logged in successfully',
-            'success' => true,
-            'user' => $user,
-            'token' => $access_token,
-        ]);
     }
 
     public function logout(Request $request)
