@@ -10,5 +10,5 @@ class Like extends Model
     use HasFactory;
 
     protected $table = 'likes';
-    protected $primaryKey = ['id'];
+    protected $guarded = ['id'];
 }
