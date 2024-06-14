@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\post;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -16,13 +16,11 @@ class PostResource extends JsonResource
     {
        return [
             'id' => $this->id,
-            'title' => $this->title,
+            'image_url' => $this->image_url,
             'description' => $this->description,
-            'image' => $this->image,
-            'user' => $this->getUser,
-            'comment' => $this->getAllComments,
-            'like-count' => $this->getAllLike->count(),
-            
+            'user'=>$this->getUser,
+            'comments'=>$this->getAllComments,
+            'like_count'=>$this->getAllLikes->count(),
 
        ];
     }
