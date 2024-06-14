@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\Comment\CommentController;
+use App\Http\Controllers\Share\ShareController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,9 @@ Route::middleware('auth:sanctum')->group(function() {
    Route::post('/add-post',[PostController::class, 'addPost']);
    Route::post('/add-comment',[CommentController::class, 'addComment']);
    Route::post('/add-like',[PostController::class, 'addLike']);
+   Route::post('/share-post',[ShareController::class, 'sharePost']);
    Route::get('/get-post/{id}',[PostController::class, 'getPosts']);
+
 });
 
 Route::post('/login', [AuthController::class, 'login']);
