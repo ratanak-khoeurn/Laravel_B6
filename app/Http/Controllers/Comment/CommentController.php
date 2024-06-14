@@ -9,18 +9,15 @@ use App\Models\Comment\Comment;
 class CommentController extends Controller
 {
     public function addComment(Request $request){
-        $request->Validate([
+        $request->validate([
             'post_id' => 'required',
             'body' => 'required',
         ]);
-
         $comment = Comment::create([
             'post_id' => $request->post_id,
             'body' => $request->body,
-            'user_id' => Auth()->user()->id,
+            'user_id' => auth()->user()->id,
         ]);
-
         return response($comment);
-
     }
 }
