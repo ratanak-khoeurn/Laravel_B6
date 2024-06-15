@@ -11,5 +11,5 @@ class Comment extends Model
 
     
     protected $table = 'comments';
-    protected $primaryKey = ['id'];
+    protected $guarded = ['id'];
 }

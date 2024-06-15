@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('shares', function (Blueprint $table) {
             $table->id();
-            $table->string('body');
             $table->integer('post_id');
             $table->integer('user_id');
             $table->integer('like_count')->default(0);
+            $table->integer('comment_count')->default(0);
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('shares');
     }
 };

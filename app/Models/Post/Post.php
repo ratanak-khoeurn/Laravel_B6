@@ -14,17 +14,17 @@ class Post extends Model
     use HasFactory;
 
     protected $table = 'posts';
-    protected $primaryKey = ['id'];
+    protected $guarded = ['id'];
 
 
     public function getUser(){
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function getAllComment(){
-        return $this->hasMany(Comment::class, 'post-id');
+    public function getAllComments(){
+        return $this->hasMany(Comment::class, 'post_id');
     }
-    public function getAllLike(){
-        return $this->hasMany(Like::class, 'post-id');
+    public function getAllLikes(){
+        return $this->hasMany(Like::class, 'post_id');
     }
 }
