@@ -20,8 +20,6 @@ use App\Http\Controllers\Share\ShareController;
 |
 */
 
-<<<<<<< HEAD
-=======
 Route::middleware('auth:sanctum')->group(function() {
    Route::post('/add-post',[PostController::class, 'addPost']);
    Route::post('/add-comment',[CommentController::class, 'addComment']);
@@ -30,7 +28,6 @@ Route::middleware('auth:sanctum')->group(function() {
    Route::get('/get-post/{id}',[PostController::class, 'getPosts']);
 
 });
->>>>>>> d482d745c2088287e99b39c3677906003ef0a671
 
 
 Route::post('/register', [AuthController::class, 'register']);
@@ -44,10 +41,4 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 Route::post('/profile/update-profile',[ProfileController::class,'update_profile'])->middleware('auth:sanctum');
 
 
-Route::get('/user/list', );
-Route::middleware('auth:sanctum')->group(function () {
-   Route::post('/add-post', [PostController::class, 'addPost']);
-   Route::post('/add-comment', [CommentController::class, 'addComment']);
-   Route::post('/add-like', [PostController::class, 'addLike']);
-   Route::get('/get-post/{id}', [PostController::class, 'getPosts']);
-});
+
