@@ -14,8 +14,7 @@ class ShareController extends Controller
             'post_id' => 'required',
         ]);
         $share = Share::create([
-            'image_url' => $request->image_url,
-            'user_id' => auth()->user()->id,
+            'user_id' => Auth()->user()->id,
             'post_id' => $request->post_id,
         ]);
         return response($share);

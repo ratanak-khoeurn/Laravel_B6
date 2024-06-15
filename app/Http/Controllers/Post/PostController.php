@@ -38,8 +38,7 @@ class PostController extends Controller
         ]);
         return response("Liked");
     }
-
-    public function getPosts($id){
+        public function getPosts($id){
         $post = Post::find($id);
         return response(new PostResource($post));
     }
