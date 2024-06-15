@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,14 +18,23 @@ use App\Http\Controllers\Comment\CommentController;
 |
 */
 
-Route::middleware('auth:sanctum')->group(function() {
-   Route::post('/add-post',[PostController::class, 'addPost']);
-   Route::post('/add-comment',[CommentController::class, 'addComment']);
-   Route::post('/add-like',[PostController::class, 'addLike']);
-   Route::get('/get-post/{id}',[PostController::class, 'getPosts']);
-});
 
-Route::post('/login', [AuthController::class, 'login']);
+
 Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
-Route::post('/logout',[AuthController::class,'logout'])->middleware('auth:sanctum');
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
+//profile
+
+// Route::get('/profile/getProfilePhoto', [ProfileController::class, 'getProfilePhoto']);
+Route::post('/profile/update-profile',[ProfileController::class,'update_profile'])->middleware('auth:sanctum');
+
+
+Route::get('/user/list', );
+Route::middleware('auth:sanctum')->group(function () {
+   Route::post('/add-post', [PostController::class, 'addPost']);
+   Route::post('/add-comment', [CommentController::class, 'addComment']);
+   Route::post('/add-like', [PostController::class, 'addLike']);
+   Route::get('/get-post/{id}', [PostController::class, 'getPosts']);
+});
