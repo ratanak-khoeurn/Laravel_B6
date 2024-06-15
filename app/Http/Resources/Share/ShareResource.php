@@ -16,11 +16,11 @@ class ShareResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'image_url' => $this->image_url,
-            'description' => $this->description,
+            'post_id' => $this->post_id,
+            'user_id' => $this->user_id,
             'user' => $this->getUser,
-            'like_count' => $this->getAllLikes->count(),
-            'comment_count' => $this->getAllComments->count(),
+            'comment' => $this->getAllComments,
+            'like_count' => $this->getAllLikes ->count(),
         ];
     }
 }

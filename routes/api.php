@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\Comment\CommentController;
+use App\Http\Controllers\Comment\CommentShareController;
+use App\Http\Controllers\Like\LikeController;
 use App\Http\Controllers\Share\ShareController;
 
 /*
@@ -20,19 +22,18 @@ use App\Http\Controllers\Share\ShareController;
 |
 */
 
-<<<<<<< HEAD
-=======
 Route::middleware('auth:sanctum')->group(function() {
    Route::post('/add-post',[PostController::class, 'addPost']);
-   Route::post('/add-comment',[CommentController::class, 'addComment']);
+   Route::post('/add-comment-post',[CommentController::class, 'addComment']);
+   Route::post('/add-comment-share',[CommentShareController::class, 'CommentShare']);
    Route::post('/add-like',[PostController::class, 'addLike']);
+   Route::post('/like-share',[LikeController::class, 'likeShare']);
    Route::post('/share-post',[ShareController::class, 'sharePost']);
    Route::get('/get-post/{id}',[PostController::class, 'getPosts']);
-
-});
->>>>>>> d482d745c2088287e99b39c3677906003ef0a671
-
-
+   Route::get('/get-share/{id}', [ShareController::class, 'getShare']);
+  
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
