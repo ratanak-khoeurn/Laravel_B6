@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ChangePasswordController;
+use App\Http\Controllers\Auth\FriendRequestController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,7 +34,7 @@ Route::middleware('auth:sanctum')->group(function () {
    Route::post('/add-like', [PostController::class, 'addLike']);
    Route::post('/share-post', [ShareController::class, 'sharePost']);
    Route::get('/get-post/{id}', [PostController::class, 'getPosts']);
-  
+});
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
