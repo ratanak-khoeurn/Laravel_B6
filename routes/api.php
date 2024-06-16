@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +58,7 @@ Route::middleware('auth:sanctum')->group(function() {
    Route::post('/share-post',[ShareController::class, 'sharePost']);
    Route::get('/get-post/{id}',[PostController::class, 'getPosts']);
    Route::get('/get-share/{id}', [ShareController::class, 'getShare']);
+   Route::get('send-verify-mail/{email}',[AuthController::class, 'sendVerifyMial']);
 });
   
 Route::post('/login', [AuthController::class, 'login']);
@@ -65,4 +67,4 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 
 //profile
 Route::post('/profile/update-profile',[ProfileController::class,'update_profile'])->middleware('auth:sanctum');
-
+Route::post('/forget-password',[AuthController::class,'forgetPassword']);
