@@ -5,6 +5,39 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/auth/user": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "user data",
+                "description": "",
+                "operationId": "3a728bc08235fa3ece4951571ad50b26",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Provide your name",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/list": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "List all users",
+                "operationId": "d153b71e20ac0db49fc7e9fed7db91fe",
         "/api/auth/logout": {
             "post": {
                 "tags": [
@@ -28,6 +61,7 @@
                             }
                         }
                     }
+                }
                 },
                 "security": [
                     {

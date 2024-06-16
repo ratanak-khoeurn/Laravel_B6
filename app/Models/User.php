@@ -50,12 +50,5 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getProfileImageUrlAttribute(){
-        if($this->profile_photo){
-            return asset('/uploads/profile_images/'.$this->profile_photo);
-        }else{
-            return 'https://ui-avatars.com/api/?background=random&name='.urlencode($this->name);
-        }
-        
     }
 }
