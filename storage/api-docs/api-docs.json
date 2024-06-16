@@ -38,6 +38,13 @@
                 ],
                 "summary": "List all users",
                 "operationId": "d153b71e20ac0db49fc7e9fed7db91fe",
+        "/api/auth/logout": {
+            "post": {
+                "tags": [
+                    "Register"
+                ],
+                "summary": "Logout the authenticated user",
+                "operationId": "8cb1c4f4bf2eee8fb318db7d6c0f35d1",
                 "responses": {
                     "200": {
                         "description": "Successful response",
@@ -55,6 +62,12 @@
                         }
                     }
                 }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         }
     },
