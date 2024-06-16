@@ -53,7 +53,7 @@ class FriendRequestController extends Controller
                 ]);
             }
 
-            return response()->json(['message' => 'Friend request updated successfully']);
+            return response()->json(['message' => 'Friend request accept successfully']);
         }
 
         return response()->json(['message' => 'Friend request not found or unauthorized'], 404);
@@ -65,7 +65,7 @@ class FriendRequestController extends Controller
 
         if ($friendRequest && ($friendRequest->sender_id == Auth::id() || $friendRequest->receiver_id == Auth::id())) {
             $friendRequest->delete();
-            return response()->json(['message' => 'Friend request deleted successfully']);
+            return response()->json(['message' => 'Friend have been rejected successfully']);
         }
 
         return response()->json(['message' => 'Friend request not found or unauthorized'], 404);

@@ -21,7 +21,7 @@ class FriendRequest extends Model
     // Assuming you have a User model and assuming sender_id and receiver_id are user IDs
     public function sender()
     {
-        return $this->belongsTo(User::class, 'sender_id','users.name');
+        return $this->belongsTo(User::class, 'sender_id');
     }
 
     public function receiver()

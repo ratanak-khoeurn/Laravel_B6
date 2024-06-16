@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\FriendRequestController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,28 +27,24 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/user',[AuthController::class,'user'])->middleware('auth:sanctum');
-
+Route::get('/user/list',[AuthController::class,'index']);
 // ROUTE FOR SEND FRIEND REQUEST
-    Route::post('/send-friend-request', [FriendRequestController::class, 'sendFriendRequest']);
-    Route::put('accept-friend-request/{id}', [FriendRequestController::class, 'acceptFriendRequest']);
-    Route::delete('reject-friend-request/{id}', [FriendRequestController::class, 'rejectFriendRequest']);
+Route::middleware('auth:sanctum')->group(function () {
+    // Route for fetching friend requests
+    Route::get('/friend-requests', [FriendRequestController::class, 'index']);
+    // Route for sending a friend request
+    Route::post('/send-friend-request', [FriendRequestController::class, 'addfriend']);
+    // Route for updating a friend request (accept or reject)
+    Route::put('/friend-accept/{id}', [FriendRequestController::class, 'acceptfriend']);
+    // Route for deleting a friend request
+    Route::delete('/friend-reject/{id}', [FriendRequestController::class, 'rejectfriend']);
+    // Route for fetching the list of friends
+    Route::get('/friends-list', [FriendRequestController::class, 'friendsList']);
+});
 
-    Route::middleware('auth:sanctum')->group(function () {
-        // Route for fetching friend requests
-        Route::get('/friend-requests', [FriendRequestController::class, 'index']);
-        // Route for sending a friend request
-        Route::post('/send-friend-request', [FriendRequestController::class, 'addfriend']);
-        // Route for updating a friend request (accept or reject)
-        Route::put('/friend-accept/{id}', [FriendRequestController::class, 'acceptfriend']);
-        // Route for deleting a friend request
-        Route::delete('/friend-requests/{id}', [FriendRequestController::class, 'rejectfriend']);
-        // Route for fetching the list of friends
-        Route::get('/friends-list', [FriendRequestController::class, 'friendsList']);
-    });
-
-// THIS ROUT FOR SWAGGER
+// THIS ROUT FOR SWAGGER LIST
 Route::get('users/list', [AuthController::class, 'index'])->name('user.profile.list');
+
 Route::middleware('auth:sanctum')->group(function() {
    Route::post('/add-post',[PostController::class, 'addPost']);
    Route::post('/add-comment-post',[CommentController::class, 'addComment']);
