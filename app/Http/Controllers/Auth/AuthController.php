@@ -7,9 +7,51 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+/** 
+* @OA\Post(
+*  path="/auth/user",
+*  summary="user data",
+*  description="",
+*  tags={"User"},
+*  @OA\Parameter(
+*      name="name",
+*      in="query",
+*      description="Provide your name",
+*      required=true,
+*  ),
+*  @OA\Response(
+*      response=200,
+*      description="OK",
+*      @OA\MediaType(
+*          mediaType="application/json",
+*      )
+*   ),
+* )
+*/
 
 class AuthController extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/api/users/list",
+     *     summary="List all users",
+     *     tags={"User"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string")
+     *         )
+     *     )
+     * )
+     */
+    public function index()
+    {
+        $users = User::all();
+        return response(['success' => true, 'data' => $users], 200);
+    }
+
     public function register(Request $request)
     {
         $request->validate([
