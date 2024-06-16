@@ -27,4 +27,9 @@ class Post extends Model
     public function getAllLikes(){
         return $this->hasMany(Like::class, 'post_id');
     }
+
+    public static function getAllPosts(){
+        return self::all();
+    }
+  
 }

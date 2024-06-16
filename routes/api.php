@@ -22,7 +22,18 @@ use App\Http\Controllers\Share\ShareController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::get('/post/list', [PostController::class, 'indexPost'])->name('post.list');
 
+Route::middleware('auth:sanctum')->group(function () {
+   Route::get('/post/show/{id}', [PostController::class, 'showPost'])->name('post.show');
+   Route::delete('/post/delete/{id}', [PostController::class, 'deletePost'])->name('post.destroy');
+
+
+   Route::post('/add-comment', [CommentController::class, 'addComment']);
+   Route::post('/add-like', [PostController::class, 'addLike']);
+   Route::post('/share-post', [ShareController::class, 'sharePost']);
+   Route::get('/get-post/{id}', [PostController::class, 'getPosts']);
+  
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -63,6 +74,8 @@ Route::middleware('auth:sanctum')->group(function() {
   
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/auth/register', [AuthController::class, 'register']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 //profile

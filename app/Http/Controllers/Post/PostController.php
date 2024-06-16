@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
+    
+    public function indexPost(){
+        $posts = Post::getAllPosts();
+        $posts = PostResource::collection($posts);
+        return response(['sucess' => true, 'posts' => $posts]);
+    }
+    
     public function addPost(Request $request){
         $request->validate([
             'image_url' => 'required',
