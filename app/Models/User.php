@@ -49,7 +49,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-}
     public function getProfileImageUrlAttribute()
     {
         if ($this->profile_photo) {
@@ -59,4 +58,4 @@ class User extends Authenticatable
         // Return a default profile image URL if no profile photo is set
         return asset('uploads/profile_images/default.png');
     }
-    }
+}
