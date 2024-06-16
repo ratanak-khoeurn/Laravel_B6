@@ -12,28 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-/** 
-* @OA\Post(
-*  path="/auth/user",
-*  summary="user data",
-*  description="",
-*  tags={"User"},
-*  @OA\Parameter(
-*      name="name",
-*      in="query",
-*      description="Provide your name",
-*      required=true,
-*  ),
-*  @OA\Response(
-*      response=200,
-*      description="OK",
-*      @OA\MediaType(
-*          mediaType="application/json",
-*      )
-*   ),
-* )
-*/
-
 class AuthController extends Controller
 {
     /**
@@ -56,6 +34,40 @@ class AuthController extends Controller
         $users = User::all();
         return response(['success' => true, 'data' => $users], 200);
     }
+
+    /**
+     * @OA\Post(
+     *     path="/api/auth/register",
+     *     tags={"Register"},
+     *     summary="Login a user",
+     *     @OA\RequestBody(
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="password", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(property="access_token", type="string"),
+     *             @OA\Property(property="token_type", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Invalid credentials",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string")
+     *         )
+     *     )
+     * )
+     */
 
     public function register(Request $request)
     {
@@ -83,6 +95,39 @@ class AuthController extends Controller
             'user' => $user
         ], 200);
     }
+
+     /**
+     * @OA\Post(
+     *     path="/api/login",
+     *     tags={"Login"},
+     *     summary="Login a user",
+     *     @OA\RequestBody(
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="password", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(property="access_token", type="string"),
+     *             @OA\Property(property="token_type", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Invalid credentials",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string")
+     *         )
+     *     )
+     * )
+     */
     public function login(Request $request)
     {
         $request->validate([

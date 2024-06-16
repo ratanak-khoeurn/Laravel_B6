@@ -39,13 +39,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/forgot_password',[NewPasswordController::class,'forgotpassword']);
+
+
+// THIS ROUT FOR SWAGGER
+Route::get('users/list', [AuthController::class, 'index'])->name('user.profile.list');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/login', [AuthController::class, 'login'])->name('register');
 Route::get('/user',[AuthController::class,'user'])->middleware('auth:sanctum');
 
 // ROUTE FOR SEND FRIEND REQUEST
-    Route::post('/send-friend-request', [FriendRequestController::class, 'sendFriendRequest']);
-    Route::put('accept-friend-request/{id}', [FriendRequestController::class, 'acceptFriendRequest']);
-    Route::delete('reject-friend-request/{id}', [FriendRequestController::class, 'rejectFriendRequest']);
-
     Route::middleware('auth:sanctum')->group(function () {
         // Route for fetching friend requests
         Route::get('/friend-requests', [FriendRequestController::class, 'index']);
@@ -59,9 +62,7 @@ Route::get('/user',[AuthController::class,'user'])->middleware('auth:sanctum');
         Route::get('/friends-list', [FriendRequestController::class, 'friendsList']);
     });
 
-// THIS ROUT FOR SWAGGER
-Route::get('users/list', [AuthController::class, 'index'])->name('user.profile.list');
-Route::middleware('auth:sanctum')->group(function() {
+   Route::middleware('auth:sanctum')->group(function() {
    Route::post('/add-post',[PostController::class, 'addPost']);
    Route::post('/add-comment-post',[CommentController::class, 'addComment']);
    Route::post('/add-comment-share',[CommentShareController::class, 'CommentShare']);
@@ -75,8 +76,6 @@ Route::middleware('auth:sanctum')->group(function() {
   
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/auth/register', [AuthController::class, 'register']);
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
-
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 //profile
