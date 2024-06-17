@@ -8,7 +8,39 @@ use App\Models\Post\Like;
 use App\Models\Post\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+/**
+     * @OA\Post(
+     *     path="/api/add-post",
+     *     tags={"Post"},
+     *     summary="Post a user",
+     *     @OA\RequestBody(
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="image_url", type="string"),
+     *             @OA\Property(property="description", type="string"),
+     *             @OA\Property(property="access_token", type="string"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(property="access_token", type="string"),
+     *             @OA\Property(property="token_type", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Invalid credentials",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string")
+     *         )
+     *     )
+     * )
+     */
 class PostController extends Controller
 {
     

@@ -12,13 +12,6 @@
                 ],
                 "summary": "List all users",
                 "operationId": "d153b71e20ac0db49fc7e9fed7db91fe",
-        "/api/auth/logout": {
-            "post": {
-                "tags": [
-                    "Register"
-                ],
-                "summary": "Logout the authenticated user",
-                "operationId": "8cb1c4f4bf2eee8fb318db7d6c0f35d1",
                 "responses": {
                     "200": {
                         "description": "Successful response",
@@ -36,12 +29,6 @@
                         }
                     }
                 }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
             }
         },
         "/api/auth/register": {
@@ -127,6 +114,73 @@
                                         "type": "string"
                                     },
                                     "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "access_token": {
+                                            "type": "string"
+                                        },
+                                        "token_type": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid credentials",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/add-post": {
+            "post": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Post a user",
+                "operationId": "d157c5321851fba4fcef34501569ec9a",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "image_url": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "access_token": {
                                         "type": "string"
                                     }
                                 },

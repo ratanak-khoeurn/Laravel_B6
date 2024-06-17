@@ -57,7 +57,7 @@ Route::get('/user',[AuthController::class,'user'])->middleware('auth:sanctum');
         // Route for updating a friend request (accept or reject)
         Route::put('/friend-accept/{id}', [FriendRequestController::class, 'acceptfriend']);
         // Route for deleting a friend request
-        Route::delete('/friend-requests/{id}', [FriendRequestController::class, 'rejectfriend']);
+        Route::delete('/friend-reject/{id}', [FriendRequestController::class, 'rejectfriend']);
         // Route for fetching the list of friends
         Route::get('/friends-list', [FriendRequestController::class, 'friendsList']);
     });
