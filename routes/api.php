@@ -80,4 +80,4 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 
 //profile
 Route::post('/profile/update-profile',[ProfileController::class,'update_profile'])->middleware('auth:sanctum');
-Route::post('/forget-password',[AuthController::class,'forgetPassword']);
+Route::post('/reset-password',[ChangePasswordController::class,'changePassword']);

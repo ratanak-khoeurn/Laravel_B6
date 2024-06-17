@@ -270,18 +270,4 @@ class AuthController extends Controller
 
         return "<h3>Password Reset Successfully!</h3>";
     }
-    public function verificationEmail($token){
-        $user = User::where('remember_token', $token)->get();
-        if(count($user) > 0){
-            $datetime = Carbon::now()->format('Y-m-d H:i:s');
-            $user = User::find($user[0]['id']);
-            $user->remember_token = $token = '';
-            $user->is_verified = 1;
-            $user->email_verified_at = $datetime;
-            $user->save();
-            return "<h1>Email verified Successfully</h1>";
-        }else{
-            return view('404');
-        }
-    }
 }
